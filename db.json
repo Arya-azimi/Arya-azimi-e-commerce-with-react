@@ -1,0 +1,393 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "محصول",
+      "price": 129.99,
+      "category": "الکترونیک",
+      "slug": "zenith-gaming-headset",
+      "description": "طراحی ارگونومیک با صدای فراگیر 7.1 کاناله برای تجربه بی‌نظیر گیمینگ.",
+      "imageUrl": "https://picsum.photos/800/600?random=1",
+      "isFeatured": true,
+      "createdAt": "2025-08-18T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "محصول",
+      "price": 249.5,
+      "category": "الکترونیک",
+      "slug": "max-smartwatch",
+      "description": "نمایشگر OLED، ردیابی فعالیت‌های ورزشی و باتری با دوام بالا.",
+      "imageUrl": "https://picsum.photos/800/600?random=2",
+      "isFeatured": true,
+      "createdAt": "2025-08-17T11:00:00Z"
+    },
+    {
+      "id": 3,
+      "name": "محصول",
+      "price": 750,
+      "category": "پهپاد",
+      "slug": "falcon-4k-drone",
+      "description": "دوربین با کیفیت 4K و قابلیت‌های پرواز خودکار برای تصویربرداری هوایی.",
+      "imageUrl": "https://picsum.photos/800/600?random=3",
+      "isFeatured": true,
+      "createdAt": "2025-08-16T12:00:00Z"
+    },
+    {
+      "id": 4,
+      "name": "محصول",
+      "price": 85,
+      "category": "الکترونیک",
+      "slug": "pro-bluetooth-speaker",
+      "description": "صدای استریو با کیفیت بالا، ضدآب و قابل حمل.",
+      "imageUrl": "https://picsum.photos/800/600?random=4",
+      "isFeatured": true,
+      "createdAt": "2025-08-15T13:00:00Z"
+    },
+    {
+      "id": 5,
+      "name": "محصول",
+      "price": 110,
+      "category": "الکترونیک",
+      "slug": "mechanical-keyboard",
+      "description": "کلیدهای مکانیکی با نورپردازی RGB برای تایپ و گیمینگ.",
+      "imageUrl": "https://picsum.photos/800/600?random=5",
+      "isFeatured": false,
+      "createdAt": "2025-08-14T14:00:00Z"
+    },
+    {
+      "id": 6,
+      "name": "محصول",
+      "price": 45,
+      "category": "خانه و آشپزخانه",
+      "slug": "smart-desk-lamp",
+      "description": "نور قابل تنظیم، کنترل لمسی و قابلیت اتصال به وای‌فای.",
+      "imageUrl": "https://picsum.photos/800/600?random=6",
+      "isFeatured": false,
+      "createdAt": "2025-08-13T15:00:00Z"
+    },
+    {
+      "id": 7,
+      "name": "محصول",
+      "price": 70,
+      "category": "سفر و ماجراجویی",
+      "slug": "travel-backpack",
+      "description": "فضای بزرگ، جیب‌های متعدد و طراحی مقاوم برای سفرهای طولانی.",
+      "imageUrl": "https://picsum.photos/800/600?random=7",
+      "isFeatured": false,
+      "createdAt": "2025-08-12T16:00:00Z"
+    },
+    {
+      "id": 8,
+      "name": "محصول",
+      "price": 199.99,
+      "category": "خانه و آشپزخانه",
+      "slug": "automatic-coffee-maker",
+      "description": "قابلیت تنظیم غلظت قهوه و نگهداری گرما به صورت خودکار.",
+      "imageUrl": "https://picsum.photos/800/600?random=8",
+      "isFeatured": false,
+      "createdAt": "2025-08-11T17:00:00Z"
+    },
+    {
+      "id": 9,
+      "name": "محصول",
+      "price": 55,
+      "category": "خانه و آشپزخانه",
+      "slug": "smart-mug",
+      "description": "دمای نوشیدنی شما را در طول روز ثابت نگه می‌دارد.",
+      "imageUrl": "https://picsum.photos/800/600?random=9",
+      "isFeatured": false,
+      "createdAt": "2025-08-10T18:00:00Z"
+    },
+    {
+      "id": 10,
+      "name": "محصول",
+      "price": 35,
+      "category": "لوازم ورزشی",
+      "slug": "yoga-mat",
+      "description": "ضخیم و ضد لغزش برای تمرینات یوگا و پیلاتس.",
+      "imageUrl": "https://picsum.photos/800/600?random=10",
+      "isFeatured": true,
+      "createdAt": "2025-08-09T19:00:00Z"
+    },
+    {
+      "id": 11,
+      "name": "محصول",
+      "price": 500,
+      "category": "سرگرمی",
+      "slug": "space-telescope",
+      "description": "مشاهده سیارات و ستاره‌ها با وضوح بالا.",
+      "imageUrl": "https://picsum.photos/800/600?random=11",
+      "isFeatured": false,
+      "createdAt": "2025-08-08T20:00:00Z"
+    },
+    {
+      "id": 12,
+      "name": "محصول",
+      "price": 150,
+      "category": "الکترونیک",
+      "slug": "wireless-headphones",
+      "description": "کیفیت صدای عالی با حذف نویز فعال.",
+      "imageUrl": "https://picsum.photos/800/600?random=12",
+      "isFeatured": false,
+      "createdAt": "2025-08-07T21:00:00Z"
+    },
+    {
+      "id": 13,
+      "name": "محصول",
+      "price": 25,
+      "category": "لوازم ورزشی",
+      "slug": "resistance-bands",
+      "description": "ست کامل بندهای مقاومتی برای تمرینات قدرتی.",
+      "imageUrl": "https://picsum.photos/800/600?random=13",
+      "isFeatured": false,
+      "createdAt": "2025-08-06T22:00:00Z"
+    },
+    {
+      "id": 14,
+      "name": "محصول",
+      "price": 15,
+      "category": "پایداری",
+      "slug": "reusable-water-bottle",
+      "description": "ساخته شده از مواد بازیافتی و بدون BPA.",
+      "imageUrl": "https://picsum.photos/800/600?random=14",
+      "isFeatured": false,
+      "createdAt": "2025-08-05T23:00:00Z"
+    },
+    {
+      "id": 15,
+      "name": "محصول",
+      "price": 300,
+      "category": "مد و پوشاک",
+      "slug": "classic-watch",
+      "description": "طراحی ظریف و شیک با بند چرمی.",
+      "imageUrl": "https://picsum.photos/800/600?random=15",
+      "isFeatured": true,
+      "createdAt": "2025-08-04T09:00:00Z"
+    },
+    {
+      "id": 16,
+      "name": "محصول",
+      "price": 40,
+      "category": "الکترونیک",
+      "slug": "wireless-charger",
+      "description": "شارژ سریع و آسان برای گوشی‌های هوشمند.",
+      "imageUrl": "https://picsum.photos/800/600?random=16",
+      "isFeatured": false,
+      "createdAt": "2025-08-03T09:30:00Z"
+    },
+    {
+      "id": 17,
+      "name": "محصول",
+      "price": 30,
+      "category": "خانه و آشپزخانه",
+      "slug": "essential-oil-diffuser",
+      "description": "ایجاد محیطی آرامش‌بخش با رایحه‌های طبیعی.",
+      "imageUrl": "https://picsum.photos/800/600?random=17",
+      "isFeatured": false,
+      "createdAt": "2025-08-02T10:00:00Z"
+    },
+    {
+      "id": 18,
+      "name": "محصول",
+      "price": 95,
+      "category": "خانه و آشپزخانه",
+      "slug": "powerful-blender",
+      "description": "تیغه‌های استیل ضد زنگ و موتور قوی برای مخلوط کردن انواع مواد.",
+      "imageUrl": "https://picsum.photos/800/600?random=18",
+      "isFeatured": false,
+      "createdAt": "2025-08-01T10:30:00Z"
+    },
+    {
+      "id": 19,
+      "name": "محصول",
+      "price": 18,
+      "category": "لوازم ورزشی",
+      "slug": "professional-jump-rope",
+      "description": "دسته ارگونومیک و کابل قابل تنظیم برای سرعت و تمرینات حرفه‌ای.",
+      "imageUrl": "https://picsum.photos/800/600?random=19",
+      "isFeatured": false,
+      "createdAt": "2025-07-31T11:00:00Z"
+    },
+    {
+      "id": 20,
+      "name": "محصول",
+      "price": 180,
+      "category": "لوازم کمپینگ",
+      "slug": "camping-tent",
+      "description": "سبک، مقاوم در برابر آب و باد، مناسب برای دو نفر.",
+      "imageUrl": "https://picsum.photos/800/600?random=20",
+      "isFeatured": false,
+      "createdAt": "2025-07-30T11:30:00Z"
+    },
+    {
+      "id": 21,
+      "name": "محصول",
+      "price": 50,
+      "category": "سرگرمی",
+      "slug": "art-kit",
+      "description": "شامل رنگ، قلم‌مو و بوم برای شروع نقاشی.",
+      "imageUrl": "https://picsum.photos/800/600?random=21",
+      "isFeatured": false,
+      "createdAt": "2025-07-29T12:00:00Z"
+    },
+    {
+      "id": 22,
+      "name": "محصول",
+      "price": 45,
+      "category": "پایداری",
+      "slug": "indoor-garden-kit",
+      "description": "باغچه کوچک برای کاشت گیاهان در داخل خانه.",
+      "imageUrl": "https://picsum.photos/800/600?random=22",
+      "isFeatured": false,
+      "createdAt": "2025-07-28T12:30:00Z"
+    },
+    {
+      "id": 23,
+      "name": "محصول",
+      "price": 22,
+      "category": "سفر و ماجراجویی",
+      "slug": "bicycle-light",
+      "description": "نور LED قوی و مقاوم در برابر آب برای ایمنی در شب.",
+      "imageUrl": "https://picsum.photos/800/600?random=23",
+      "isFeatured": false,
+      "createdAt": "2025-07-27T13:00:00Z"
+    },
+    {
+      "id": 24,
+      "name": "محصول",
+      "price": 400,
+      "category": "الکترونیک",
+      "slug": "camera-lens",
+      "description": "لنز با کیفیت بالا برای عکاسی حرفه‌ای.",
+      "imageUrl": "https://picsum.photos/800/600?random=24",
+      "isFeatured": false,
+      "createdAt": "2025-07-26T13:30:00Z"
+    },
+    {
+      "id": 25,
+      "name": "محصول",
+      "price": 280,
+      "category": "الکترونیک",
+      "slug": "studio-microphone",
+      "description": "میکروفون با کیفیت بالا برای ضبط صدا و پادکست.",
+      "imageUrl": "https://picsum.photos/800/600?random=25",
+      "isFeatured": false,
+      "createdAt": "2025-07-25T14:00:00Z"
+    },
+    {
+      "id": 26,
+      "name": "محصول",
+      "price": 130,
+      "category": "خانه و آشپزخانه",
+      "slug": "air-fryer",
+      "description": "برای پخت و پز غذاهای سالم و کم روغن.",
+      "imageUrl": "https://picsum.photos/800/600?random=26",
+      "isFeatured": false,
+      "createdAt": "2025-07-24T14:30:00Z"
+    },
+    {
+      "id": 27,
+      "name": "محصول",
+      "price": 35,
+      "category": "الکترونیک",
+      "slug": "power-bank",
+      "description": "شارژ سریع و ظرفیت بالا برای دستگاه‌های همراه.",
+      "imageUrl": "https://picsum.photos/800/600?random=27",
+      "isFeatured": false,
+      "createdAt": "2025-07-23T15:00:00Z"
+    },
+    {
+      "id": 28,
+      "name": "محصول",
+      "price": 60,
+      "category": "لوازم ورزشی",
+      "slug": "smart-band",
+      "description": "ردیابی فعالیت، ضربان قلب و کیفیت خواب.",
+      "imageUrl": "https://picsum.photos/800/600?random=28",
+      "isFeatured": false,
+      "createdAt": "2025-07-22T15:30:00Z"
+    },
+    {
+      "id": 29,
+      "name": "محصول",
+      "price": 50,
+      "category": "لوازم کمپینگ",
+      "slug": "travel-blanket",
+      "description": "بسیار سبک و گرم، مناسب برای سفر و کمپینگ.",
+      "imageUrl": "https://picsum.photos/800/600?random=29",
+      "isFeatured": false,
+      "createdAt": "2025-07-21T16:00:00Z"
+    },
+    {
+      "id": 30,
+      "name": "محصول",
+      "price": 25,
+      "category": "الکترونیک",
+      "slug": "laptop-stand",
+      "description": "طراحی قابل تنظیم و تهویه مناسب برای استفاده طولانی مدت.",
+      "imageUrl": "https://picsum.photos/800/600?random=30",
+      "isFeatured": false,
+      "createdAt": "2025-07-20T16:30:00Z"
+    }
+  ],
+  "users": [
+    {
+      "username": "ahmad",
+      "password": "$2b$10$YAWYaAvHJE8fUBTZPfvZa.4tj98KdSzdZKAE3vjb53P1xa3X7wNTm",
+      "id": 1
+    },
+    {
+      "username": "aryaaaaa",
+      "password": "$2b$10$5TWGtT4yKr3xflbM7RIl0.vz32dsOiNHzvJ4mNWVJSbptd/iY5CFG",
+      "id": 2
+    },
+    {
+      "username": "arya",
+      "password": "$2b$10$m..pW3ix3fyQEVwMS5zDUuladq.qT34ESaHGBtZ869AOgfaaesS.i",
+      "id": 3
+    },
+    {
+      "username": "آریا جون",
+      "password": "$2b$10$yvYYLhApSha9HlRyswNWgeODReWwFruvXeERriRG7IZ0APwx6eTCW",
+      "id": 4
+    },
+    {
+      "username": "آریا",
+      "password": "$2b$10$Pr93InNIbK/1U3ieX5YF0ugTZF4VVFmbKzOtTI50rTzz7caerappi",
+      "id": 5
+    },
+    {
+      "username": "الیی",
+      "password": "$2b$10$Cx0GU2UTOSvh41uB02AS9eded5Jih8Yh7vxm8RmCugyvKDlESNFRO",
+      "id": 6
+    }
+  ],
+  "carts": [
+    {
+      "userId": "3",
+      "items": [],
+      "id": 1
+    },
+    {
+      "userId": "1",
+      "items": [],
+      "id": 2
+    },
+    {
+      "userId": "2",
+      "items": [],
+      "id": 3
+    },
+    {
+      "userId": "4",
+      "items": [],
+      "id": 4
+    },
+    {
+      "userId": "5",
+      "items": [],
+      "id": 5
+    }
+  ]
+}
