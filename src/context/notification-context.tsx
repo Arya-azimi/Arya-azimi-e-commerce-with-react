@@ -34,7 +34,6 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   return (
     <NotificationContext.Provider value={{ showNotification }}>
       {children}
-      {/* این خط را اضافه کنید */}
       <Notification
         message={notification.message}
         type={notification.type}

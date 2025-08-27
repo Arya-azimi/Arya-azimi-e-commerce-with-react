@@ -1,4 +1,4 @@
-import { useState } from "react"; // <-- useState را اضافه کنید
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart } from "../shopping-cart";
 import { useAuth } from "../../hooks";
@@ -44,7 +44,6 @@ function Header() {
                 >
                   سلام، {user.username}
                 </Link>
-                {/* ۳. دکمه خروج حالا مودال را باز می‌کند */}
                 <button
                   onClick={() => setIsLogoutModalOpen(true)}
                   className="text-gray-600 hover:text-gray-900 transition-colors"

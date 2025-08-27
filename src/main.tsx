@@ -4,21 +4,18 @@ import "./index.css";
 import App from "./App";
 import { AuthProvider } from "./context/auth-context";
 import { CartProvider } from "./context/cart-context";
-import { NotificationProvider } from "./context/notification-context"; // <-- این خط را اضافه کنید
+import { NotificationProvider } from "./context/notification-context";
 
 export function Main() {
   return (
     <StrictMode>
       <NotificationProvider>
-        {" "}
-        {/* <-- این Provider را اضافه کنید */}
         <CartProvider>
           <AuthProvider>
             <App />
           </AuthProvider>
         </CartProvider>
       </NotificationProvider>{" "}
-      {/* <-- این Provider را اضافه کنید */}
     </StrictMode>
   );
 }

@@ -13,7 +13,7 @@ function Notification({ message, type, visible }: NotificationProps) {
     if (visible) {
       setShow(true);
     } else {
-      const timer = setTimeout(() => setShow(false), 500); // زمان انیمیشن محو شدن
+      const timer = setTimeout(() => setShow(false), 500);
       return () => clearTimeout(timer);
     }
   }, [visible]);

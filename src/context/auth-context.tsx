@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, ReactNode } from "react";
-import { signIn, signUp, getCart, saveCart, logoutUser } from "../services"; // logoutUser را اضافه کنیدimport { useCart } from "../hooks";
+import { signIn, signUp, getCart, saveCart, logoutUser } from "../services";
 import { User } from "../domain";
 import { useCart } from "../hooks";
 interface AuthContextType {

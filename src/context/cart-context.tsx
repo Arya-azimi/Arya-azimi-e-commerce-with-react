@@ -1,7 +1,6 @@
 import { createContext, useReducer, ReactNode } from "react";
 import { Product } from "../domain";
 
-// ... انواع تایپ‌ها و Reducer بدون تغییر باقی می‌ماند ...
 interface CartItem extends Product {
   quantity: number;
 }
@@ -67,11 +66,9 @@ interface CartContextType {
   setCart: (items: CartItem[]) => void;
 }
 
-// این خط را export کنید
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  // ... محتوای این کامپوننت بدون تغییر باقی می‌ماند ...
   const [state, dispatch] = useReducer(cartReducer, { items: [] });
   const value = {
     items: state.items,

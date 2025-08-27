@@ -1,23 +1,23 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth, useAuthForm, useNotification } from "../../hooks"; // useNotification را اضافه کنید
-import { UI_MESSAGES, ERROR_MESSAGES } from "../../constants"; // پیام‌ها را اضافه کنید
+import { useAuth, useAuthForm, useNotification } from "../../hooks";
+import { UI_MESSAGES, ERROR_MESSAGES } from "../../constants";
 
 function SignUp() {
   const { username, password, handleChange } = useAuthForm();
   const { signup } = useAuth();
   const navigate = useNavigate();
-  const { showNotification } = useNotification(); // <-- هوک اعلان را فراخوانی کنید
+  const { showNotification } = useNotification();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (username && password) {
       try {
         await signup(username, password);
-        showNotification(UI_MESSAGES.SIGNUP_SUCCESS, "success"); // <-- پیام موفقیت
+        showNotification(UI_MESSAGES.SIGNUP_SUCCESS, "success");
         navigate("/");
       } catch (error) {
         console.error("Sign up failed:", error);
-        showNotification(ERROR_MESSAGES.SIGNUP_FAILED, "error"); // <-- پیام خطا
+        showNotification(ERROR_MESSAGES.SIGNUP_FAILED, "error");
       }
     }
   };
