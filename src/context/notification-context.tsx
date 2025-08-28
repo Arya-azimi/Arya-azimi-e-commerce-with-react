@@ -13,11 +13,11 @@ interface NotificationContextType {
   showNotification: (message: string, type: NotificationType) => void;
 }
 
-export const NotificationContext = createContext<
-  NotificationContextType | undefined
->(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined
+);
 
-export function NotificationProvider({ children }: { children: ReactNode }) {
+function NotificationProvider({ children }: { children: ReactNode }) {
   const [notification, setNotification] = useState<NotificationState>({
     message: "",
     type: "success",
@@ -42,3 +42,5 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     </NotificationContext.Provider>
   );
 }
+
+export { NotificationContext, NotificationProvider };

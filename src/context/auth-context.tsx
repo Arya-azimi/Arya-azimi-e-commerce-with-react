@@ -12,11 +12,9 @@ interface AuthContextType {
   updateUserState: (newUser: User) => void;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined
-);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,12 +44,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     setError(null);
     try {
-      // پاسخ جدید سرور ساختار { user: { id, username } } دارد
       const { user: authUser } = await signIn(username, password);
       const newUser: User = {
         username: authUser.username,
         userId: authUser.id.toString(),
-      }; // <-- تغییر اینجا
+      };
       setUser(newUser);
       localStorage.setItem("user", JSON.stringify(newUser));
       const items = await getCart(newUser.userId);
@@ -110,3 +107,5 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
+
+export { AuthContext, AuthProvider };

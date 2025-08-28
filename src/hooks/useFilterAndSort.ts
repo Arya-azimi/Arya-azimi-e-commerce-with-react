@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Product } from "../domain";
 
-export function useFilterAndSort(
+function useFilterAndSort(
   products: Product[],
   searchTerm: string,
   sortOption: string
@@ -33,3 +33,5 @@ export function useFilterAndSort(
 
   return { sortedAndFilteredProducts };
 }
+
+export { useFilterAndSort };

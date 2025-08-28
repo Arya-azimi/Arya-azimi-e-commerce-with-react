@@ -7,13 +7,14 @@ interface CartItem extends Product {
 interface CartState {
   items: CartItem[];
 }
+
 type CartAction =
   | { type: "ADD_ITEM"; payload: Product }
   | { type: "REMOVE_ITEM"; payload: { productId: number } }
   | { type: "SET_CART"; payload: CartItem[] }
   | { type: "CLEAR_CART" };
+
 const cartReducer = (state: CartState, action: CartAction): CartState => {
-  // ...
   switch (action.type) {
     case "ADD_ITEM": {
       const product = action.payload;
@@ -56,7 +57,6 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       return state;
   }
 };
-// ---
 
 interface CartContextType {
   items: CartItem[];
@@ -68,7 +68,7 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({ children }: { children: ReactNode }) {
+function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, { items: [] });
   const value = {
     items: state.items,
@@ -83,4 +83,4 @@ export function CartProvider({ children }: { children: ReactNode }) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
-export { CartContext };
+export { CartContext, CartProvider };

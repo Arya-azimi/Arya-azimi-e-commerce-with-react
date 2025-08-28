@@ -6,3 +6,4 @@ export * from "./useCart";
 export * from "./useNotification";
 export * from "./useDashState";
 export * from "./useDashSubmit";
+export * from "./useFilterAndSort";

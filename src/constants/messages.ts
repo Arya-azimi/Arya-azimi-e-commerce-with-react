@@ -1,4 +1,4 @@
-export const ERROR_MESSAGES = {
+const ERROR_MESSAGES = {
   FETCH_PRODUCTS: "خطا در دریافت محصولات.",
   FETCH_FEATURED_PRODUCTS: "خطا در دریافت محصولات ویژه.",
   PRODUCT_NOT_FOUND: "محصول مورد نظر یافت نشد.",
@@ -8,7 +8,7 @@ export const ERROR_MESSAGES = {
   CURRENT_PASSWORD_REQUIRED: "رمز عبور فعلی برای تایید تغییرات الزامی است.",
   INCORRECT_CURRENT_PASSWORD: "رمز عبور فعلی شما اشتباه است.",
 };
-export const UI_MESSAGES = {
+const UI_MESSAGES = {
   LOADING: "در حال بارگذاری...",
   NO_PRODUCTS: "هیچ محصولی یافت نشد.",
   CART_EMPTY: "سبد خرید شما خالی است.",
@@ -19,7 +19,7 @@ export const UI_MESSAGES = {
   SIGNUP_SUCCESS: "حساب کاربری با موفقیت ایجاد شد!", // <-- این خط را اضافه کنید
 };
 
-export const PAGE_TITLES = {
+const PAGE_TITLES = {
   LOGIN: "ورود",
   SIGNUP: "ثبت‌نام",
   HOME: "صفحه اصلی",
@@ -27,10 +27,12 @@ export const PAGE_TITLES = {
   PRODUCT_DETAIL: "جزئیات محصول",
 };
 
-export const BUTTON_LABELS = {
+const BUTTON_LABELS = {
   LOGIN: "ورود",
   SIGNUP: "ایجاد حساب",
   LOGOUT: "خروج",
   ADD_TO_CART: "خرید",
   CHECKOUT: "تسویه حساب",
 };
+
+export { ERROR_MESSAGES, UI_MESSAGES, PAGE_TITLES, BUTTON_LABELS };

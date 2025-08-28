@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function useAuthForm() {
+function useAuthForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,3 +15,5 @@ export function useAuthForm() {
 
   return { username, password, handleChange };
 }
+
+export { useAuthForm };

@@ -6,7 +6,7 @@ import {
 import { Modal } from "../../components/modal";
 import { DashboardForm } from "../../components/dashboard-form";
 
-export function Dashboard() {
+function Dashboard() {
   const { user } = useAuth();
 
   const {
@@ -66,3 +66,4 @@ export function Dashboard() {
     </>
   );
 }
+export { Dashboard };

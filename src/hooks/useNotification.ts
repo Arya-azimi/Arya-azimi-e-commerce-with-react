@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { NotificationContext } from "../context/notification-context";
 
-export const useNotification = () => {
+const useNotification = () => {
   const context = useContext(NotificationContext);
   if (!context) {
     throw new Error(
@@ -10,3 +10,5 @@ export const useNotification = () => {
   }
   return context;
 };
+
+export { useNotification };

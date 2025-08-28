@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { Product } from "../types/";
+import { Product } from "../domain";
 import { useCart } from "./useCart";
 import { useAuth } from "./useAuth";
 
-export function useAddToCart() {
+function useAddToCart() {
   const { user } = useAuth();
   const { addItem } = useCart();
   const navigate = useNavigate();
@@ -22,3 +22,5 @@ export function useAddToCart() {
 
   return { handleAddToCart };
 }
+
+export { useAddToCart };

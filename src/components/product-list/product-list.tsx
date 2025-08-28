@@ -6,7 +6,7 @@ type ProductListProps = {
   products: Product[];
 };
 
-export function ProductList({ products }: ProductListProps) {
+function ProductList({ products }: ProductListProps) {
   if (products.length === 0) {
     return (
       <div className="text-center p-8 text-gray-600">
@@ -23,3 +23,5 @@ export function ProductList({ products }: ProductListProps) {
     </div>
   );
 }
+
+export { ProductList };
