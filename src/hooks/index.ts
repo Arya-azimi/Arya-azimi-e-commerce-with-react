@@ -10,3 +10,4 @@ export * from "./useFilterAndSort";
 export * from "./useLogin";
 export * from "./useSignUp";
 export * from "./useProductDetail";
+export * from "./useProductsPage";
