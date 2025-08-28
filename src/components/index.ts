@@ -12,5 +12,6 @@ export * from "./login-form";
 export * from "./product-image";
 export * from "./product-info";
 export * from "./shopping-cart-icon";
-export * from "./hero";
 export * from "./featured-products";
+export * from "./hero";
+export * from "./auth-layout";
