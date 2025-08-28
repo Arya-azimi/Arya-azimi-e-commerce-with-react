@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function useDashboardFormState() {
+function useDashState() {
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
@@ -18,4 +18,4 @@ function useDashboardFormState() {
   };
 }
 
-export { useDashboardFormState };
+export { useDashState };

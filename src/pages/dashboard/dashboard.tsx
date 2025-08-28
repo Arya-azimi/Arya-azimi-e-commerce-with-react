@@ -1,8 +1,4 @@
-import {
-  useDashboardFormState,
-  useDashboardSubmit,
-  useAuth,
-} from "../../hooks";
+import { useDashState, useDashSubmit, useAuth } from "../../hooks";
 import { Modal } from "../../components/modal";
 import { DashboardForm } from "../../components/dashboard-form";
 
@@ -15,7 +11,7 @@ function Dashboard() {
     newPassword,
     setNewPassword,
     resetForm,
-  } = useDashboardFormState();
+  } = useDashState();
 
   const {
     isConfirmModalOpen,
@@ -24,7 +20,7 @@ function Dashboard() {
     setCurrentPassword,
     handleInitiateUpdate,
     handleConfirmUpdate,
-  } = useDashboardSubmit(newUsername, newPassword, resetForm);
+  } = useDashSubmit(newUsername, newPassword, resetForm);
 
   return (
     <>

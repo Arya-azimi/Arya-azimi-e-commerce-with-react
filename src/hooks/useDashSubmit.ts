@@ -4,7 +4,7 @@ import { updateUser, verifyPassword } from "../services";
 import { User } from "../domain";
 import { ERROR_MESSAGES } from "../constants";
 
-function useDashboardSubmit(
+function useDashSubmit(
   newUsername: string,
   newPassword: string,
   resetForm: () => void
@@ -72,4 +72,4 @@ function useDashboardSubmit(
   };
 }
 
-export { useDashboardSubmit };
+export { useDashSubmit };

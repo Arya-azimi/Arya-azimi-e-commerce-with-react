@@ -371,6 +371,11 @@
       "username": "a",
       "password": "$2b$10$mOHpusHkvjEsneCFVA1DGeSBhAMKBRCnjaqdQYBy/PU56N1EXCg6G",
       "id": 8
+    },
+    {
+      "username": "b2",
+      "password": "$2b$10$c38AkRpKsL/1Oi3G3SVuQuGbXgqa8rQirEQNDZ7s0K9/LeXoKJVs.",
+      "id": 9
     }
   ],
   "carts": [
