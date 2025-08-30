@@ -4,18 +4,22 @@ import { updateUser, verifyPassword } from "../services";
 import { User } from "../domain";
 import { ERROR_MESSAGES } from "../constants";
 
-function useDashSubmit(
-  newUsername: string,
-  newPassword: string,
-  resetForm: () => void
-) {
+export function useDashboardForm() {
   const { user, updateUserState } = useAuth();
   const { showNotification } = useNotification();
 
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
-  const handleInitiateUpdate = (e: React.FormEvent) => {
+  const resetForm = () => {
+    setNewUsername("");
+    setNewPassword("");
+    setCurrentPassword("");
+  };
+
+  const handleUpdate = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newUsername && !newPassword) {
       showNotification("حداقل یکی از فیلدها باید پر شود.", "error");
@@ -24,7 +28,7 @@ function useDashSubmit(
     setIsConfirmModalOpen(true);
   };
 
-  const handleConfirmUpdate = async () => {
+  const confirmUpdate = async () => {
     if (!user) return;
     if (!currentPassword) {
       showNotification(ERROR_MESSAGES.CURRENT_PASSWORD_REQUIRED, "error");
@@ -38,38 +42,35 @@ function useDashSubmit(
       if (newUsername) dataToUpdate.username = newUsername;
       if (newPassword) dataToUpdate.password = newPassword;
 
-      const response = await updateUser(user.userId, dataToUpdate);
+      const { user: updatedUser } = await updateUser(user.userId, dataToUpdate);
 
-      const updatedUserForState: User = {
-        username: response.user.username,
-        userId: response.user.id.toString(),
+      const newUserState: User = {
+        username: updatedUser.username,
+        userId: updatedUser.id.toString(),
       };
 
-      updateUserState(updatedUserForState);
+      updateUserState(newUserState);
       showNotification("اطلاعات با موفقیت به‌روز شد!", "success");
 
       setIsConfirmModalOpen(false);
-      setCurrentPassword("");
       resetForm();
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "خطای ناشناخته";
-      if (errorMessage.includes("رمز عبور فعلی اشتباه است")) {
-        showNotification(ERROR_MESSAGES.INCORRECT_CURRENT_PASSWORD, "error");
-      } else {
-        showNotification(errorMessage, "error");
-      }
+      const message = error instanceof Error ? error.message : "خطای ناشناخته";
+      showNotification(message, "error");
     }
   };
 
   return {
-    isConfirmModalOpen,
-    setIsConfirmModalOpen,
+    user,
+    newUsername,
+    setNewUsername,
+    newPassword,
+    setNewPassword,
     currentPassword,
     setCurrentPassword,
-    handleInitiateUpdate,
-    handleConfirmUpdate,
+    isConfirmModalOpen,
+    setIsConfirmModalOpen,
+    handleUpdate,
+    confirmUpdate,
   };
 }
-
-export { useDashSubmit };

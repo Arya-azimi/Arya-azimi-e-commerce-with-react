@@ -11,7 +11,6 @@ function Card({ product }: ProductCardProps) {
   const { showNotification } = useNotification();
   const { items } = useCart();
 
-  // پیدا کردن محصول فعلی در سبد خرید
   const itemInCart = items.find((item) => item.id === product.id);
   const quantityInCart = itemInCart?.quantity || 0;
 

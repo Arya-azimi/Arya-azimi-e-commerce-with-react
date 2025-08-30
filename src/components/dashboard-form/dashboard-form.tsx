@@ -2,19 +2,17 @@ import { User } from "../../domain";
 
 interface DashboardFormProps {
   user: User | null;
-  newUsername: string;
-  setNewUsername: (value: string) => void;
-  newPassword: string;
-  setNewPassword: (value: string) => void;
+  username: string;
+  password: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
 
 function DashboardForm({
   user,
-  newUsername,
-  setNewUsername,
-  newPassword,
-  setNewPassword,
+  username,
+  password,
+  onChange,
   onSubmit,
 }: DashboardFormProps) {
   return (
@@ -30,8 +28,9 @@ function DashboardForm({
         <input
           type="text"
           id="username"
-          value={newUsername}
-          onChange={(e) => setNewUsername(e.target.value)}
+          name="username"
+          value={username}
+          onChange={onChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           placeholder={user?.username}
         />
@@ -46,8 +45,9 @@ function DashboardForm({
         <input
           type="password"
           id="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+          name="password"
+          value={password}
+          onChange={onChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           placeholder="••••••••"
         />

@@ -1,26 +1,17 @@
-import { useDashState, useDashSubmit, useAuth } from "../../hooks";
-import { Modal } from "../../components/modal";
-import { DashboardForm } from "../../components/dashboard-form";
+import { useDashboard } from "../../hooks";
+import { Modal, DashboardForm } from "../../components";
 
 function Dashboard() {
-  const { user } = useAuth();
-
   const {
-    newUsername,
-    setNewUsername,
-    newPassword,
-    setNewPassword,
-    resetForm,
-  } = useDashState();
-
-  const {
-    isConfirmModalOpen,
-    setIsConfirmModalOpen,
-    currentPassword,
-    setCurrentPassword,
-    handleInitiateUpdate,
-    handleConfirmUpdate,
-  } = useDashSubmit(newUsername, newPassword, resetForm);
+    user,
+    form,
+    modal,
+    handleFormChange,
+    handleSubmit,
+    handleConfirm,
+    handleModalClose,
+    handlePasswordChange,
+  } = useDashboard();
 
   return (
     <>
@@ -33,19 +24,18 @@ function Dashboard() {
 
           <DashboardForm
             user={user}
-            newUsername={newUsername}
-            setNewUsername={setNewUsername}
-            newPassword={newPassword}
-            setNewPassword={setNewPassword}
-            onSubmit={handleInitiateUpdate}
+            username={form.username}
+            password={form.password}
+            onChange={handleFormChange}
+            onSubmit={handleSubmit}
           />
         </div>
       </div>
 
       <Modal
-        isOpen={isConfirmModalOpen}
-        onClose={() => setIsConfirmModalOpen(false)}
-        onConfirm={handleConfirmUpdate}
+        isOpen={modal.isOpen}
+        onClose={handleModalClose}
+        onConfirm={handleConfirm}
         title="تایید هویت"
       >
         <p className="mb-4">
@@ -53,8 +43,8 @@ function Dashboard() {
         </p>
         <input
           type="password"
-          value={currentPassword}
-          onChange={(e) => setCurrentPassword(e.target.value)}
+          value={modal.currentPassword}
+          onChange={handlePasswordChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           placeholder="رمز عبور فعلی"
         />
