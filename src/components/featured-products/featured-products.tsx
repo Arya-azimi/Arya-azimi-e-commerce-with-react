@@ -1,10 +1,9 @@
 import { useProducts } from "../../hooks";
-import { Card, Loading, Error } from "../"; // Import other components
+import { Card, Error } from "../"; // Import other components
 
 function FeaturedProducts() {
-  const { products, loading, error } = useProducts();
+  const { products, error } = useProducts();
 
-  if (loading) return <Loading />;
   if (error) return <Error message={error} />;
 
   const featuredProducts = products.filter((p) => p.isFeatured).slice(0, 10);

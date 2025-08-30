@@ -1,4 +1,4 @@
-import { createContext, useReducer, ReactNode } from "react";
+import { createContext, useReducer, ReactNode, useEffect } from "react";
 import { Product } from "../domain";
 
 interface CartItem extends Product {
@@ -34,6 +34,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     case "REMOVE_ITEM": {
       const { productId } = action.payload;
       const existingItem = state.items.find((item) => item.id === productId);
+      // اگر تعداد محصول بیشتر از ۱ بود، یکی کم کن
       if (existingItem && existingItem.quantity > 1) {
         return {
           ...state,
@@ -44,6 +45,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           ),
         };
       }
+      // در غیر این صورت، محصول را کامل حذف کن
       return {
         ...state,
         items: state.items.filter((item) => item.id !== productId),
@@ -69,14 +71,27 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 function CartProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  // خواندن اطلاعات اولیه سبد خرید از localStorage
+  const initialState: CartState = {
+    items: JSON.parse(localStorage.getItem("cartItems") || "[]"),
+  };
+
+  const [state, dispatch] = useReducer(cartReducer, initialState);
+
+  // هر بار که سبد خرید تغییر کرد، آن را در localStorage ذخیره کن
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(state.items));
+  }, [state.items]);
+
   const value = {
     items: state.items,
     addItem: (product: Product) =>
       dispatch({ type: "ADD_ITEM", payload: product }),
     removeItem: (productId: number) =>
       dispatch({ type: "REMOVE_ITEM", payload: { productId } }),
-    clearCart: () => dispatch({ type: "CLEAR_CART" }),
+    clearCart: () => {
+      dispatch({ type: "CLEAR_CART" });
+    },
     setCart: (items: CartItem[]) =>
       dispatch({ type: "SET_CART", payload: items }),
   };

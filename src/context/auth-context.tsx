@@ -1,7 +1,8 @@
 import { useState, useEffect, createContext, ReactNode } from "react";
 import { signIn, signUp, getCart, saveCart, logoutUser } from "../services";
-import { User } from "../domain";
+import { User, CartItem } from "../domain";
 import { useCart } from "../hooks";
+
 interface AuthContextType {
   user: User | null;
   loading: boolean;
@@ -11,14 +12,13 @@ interface AuthContextType {
   logout: () => void;
   updateUserState: (newUser: User) => void;
 }
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { setCart, clearCart, items: cartItems } = useCart();
+  const { setCart, clearCart, items: localCartItems } = useCart();
 
   useEffect(() => {
     setLoading(true);
@@ -40,6 +40,22 @@ function AuthProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const mergeCarts = (
+    serverCart: CartItem[],
+    localCart: CartItem[]
+  ): CartItem[] => {
+    const merged = [...serverCart];
+    localCart.forEach((localItem) => {
+      const serverItem = merged.find((item) => item.id === localItem.id);
+      if (serverItem) {
+        serverItem.quantity += localItem.quantity;
+      } else {
+        merged.push(localItem);
+      }
+    });
+    return merged;
+  };
+
   const login = async (username, password) => {
     setLoading(true);
     setError(null);
@@ -51,8 +67,13 @@ function AuthProvider({ children }: { children: ReactNode }) {
       };
       setUser(newUser);
       localStorage.setItem("user", JSON.stringify(newUser));
-      const items = await getCart(newUser.userId);
-      if (items) setCart(items);
+
+      const serverCart = await getCart(newUser.userId);
+      const mergedCart = mergeCarts(serverCart, localCartItems);
+      setCart(mergedCart);
+      await saveCart(newUser.userId, mergedCart);
+
+      localStorage.removeItem("cartItems");
     } catch (err) {
       setError(err instanceof Error ? err.message : "خطا در ورود.");
       throw err;
@@ -60,7 +81,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
     }
   };
-
   const signup = async (username, password) => {
     setLoading(true);
     setError(null);
@@ -82,7 +102,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     if (user) {
-      await saveCart(user.userId, cartItems);
+      await saveCart(user.userId, localCartItems);
       await logoutUser();
     }
     setUser(null);

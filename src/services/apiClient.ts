@@ -49,7 +49,7 @@ async function apiClient<TResponse, TBody = unknown>(
 apiClient.get = <TResponse>(
   endpoint: string,
   options?: ApiClientOptions<never>
-) => apiClient<TResponse>(endpoint, { ...options, method: "GET" });
+) => apiClient<TResponse>(endpoint, { ...options, method: "GET" }); // endpoint = 'products', params = {isFeatured: true}
 
 apiClient.post = <TResponse, TBody>(
   endpoint: string,

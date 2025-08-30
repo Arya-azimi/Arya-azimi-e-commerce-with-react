@@ -1,23 +1,18 @@
-import { useNavigate } from "react-router-dom";
 import { Product } from "../domain";
 import { useCart } from "./useCart";
-import { useAuth } from "./useAuth";
+import { useNotification } from "./useNotification";
 
 function useAddToCart() {
-  const { user } = useAuth();
   const { addItem } = useCart();
-  const navigate = useNavigate();
+  const { showNotification } = useNotification();
 
   const handleAddToCart = (product: Product, event?: React.MouseEvent) => {
     if (event) {
       event.preventDefault();
+      event.stopPropagation();
     }
-
-    if (user) {
-      addItem(product);
-    } else {
-      navigate("/login");
-    }
+    addItem(product);
+    showNotification(`${product.name} به سبد خرید اضافه شد`, "success");
   };
 
   return { handleAddToCart };

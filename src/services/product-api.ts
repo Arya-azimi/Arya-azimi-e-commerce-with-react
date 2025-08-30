@@ -1,20 +1,33 @@
 import { Product } from "../domain";
 import apiClient from "./apiClient";
 
-function getProducts(): Promise<Product[]> {
-  return apiClient.get<Product[]>("products");
+interface GetProductsParams {
+  isFeatured?: boolean;
+  slug?: string;
 }
 
-function getFeaturedProducts(): Promise<Product[]> {
-  return apiClient.get<Product[]>("products?isFeatured=true");
+export async function getProducts(
+  params?: GetProductsParams
+): Promise<Product[]> {
+  const query = new URLSearchParams();
+
+  if (params) {
+    if (params.isFeatured !== undefined) {
+      query.append("isFeatured", String(params.isFeatured));
+    }
+    if (params.slug) {
+      query.append("slug", params.slug);
+    }
+  }
+
+  const endpoint = `products?${query.toString()}`;
+  return apiClient.get<Product[]>(endpoint);
 }
 
-async function getProductBySlug(slug: string): Promise<Product> {
-  const products = await apiClient.get<Product[]>(`products?slug=${slug}`);
+export async function getProductBySlug(slug: string): Promise<Product> {
+  const products = await getProducts({ slug });
   if (products.length === 0) {
     throw new Error(`محصول با اسلاگ "${slug}" پیدا نشد.`);
   }
   return products[0];
 }
-
-export { getProducts, getFeaturedProducts, getProductBySlug };

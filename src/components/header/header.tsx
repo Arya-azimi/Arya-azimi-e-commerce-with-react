@@ -53,7 +53,7 @@ function Header() {
               </>
             ) : (
               <Link
-                to="/login"
+                to="/auth"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 ورود

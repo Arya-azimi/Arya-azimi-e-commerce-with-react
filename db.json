@@ -376,6 +376,16 @@
       "username": "b2",
       "password": "$2b$10$c38AkRpKsL/1Oi3G3SVuQuGbXgqa8rQirEQNDZ7s0K9/LeXoKJVs.",
       "id": 9
+    },
+    {
+      "username": "w",
+      "password": "$2b$10$IDwc1m5qchlt1ywssE.X0.bjY1QClD973OvjD.c594gUBed7CWg3S",
+      "id": 10
+    },
+    {
+      "username": "t6",
+      "password": "$2b$10$L/SjQVNEVqB/.cJv1qwFneR8D1YlzAXRJZuxjJhCsaYR5/zQBlyr6",
+      "id": 11
     }
   ],
   "carts": [
@@ -418,6 +428,21 @@
       "userId": "8",
       "items": [],
       "id": 8
+    },
+    {
+      "userId": "9",
+      "items": [],
+      "id": 9
+    },
+    {
+      "userId": "10",
+      "items": [],
+      "id": 10
+    },
+    {
+      "userId": "11",
+      "items": [],
+      "id": 11
     }
   ]
 }
