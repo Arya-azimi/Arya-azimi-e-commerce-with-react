@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "../context/auth-context";
-import { CartProvider } from "../context/cart-context";
-import { NotificationProvider } from "../context/notification-context";
+import { AuthProvider } from "../context";
+import { CartProvider } from "../context";
+import { NotificationProvider } from "../context";
 
 interface AppProvidersProps {
   children: ReactNode;

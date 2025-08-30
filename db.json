@@ -452,7 +452,7 @@
           "imageUrl": "https://picsum.photos/800/600?random=3",
           "isFeatured": true,
           "createdAt": "2025-08-16T12:00:00Z",
-          "quantity": 1
+          "quantity": 2
         },
         {
           "id": 2,
@@ -464,7 +464,7 @@
           "imageUrl": "https://picsum.photos/800/600?random=2",
           "isFeatured": true,
           "createdAt": "2025-08-17T11:00:00Z",
-          "quantity": 1
+          "quantity": 2
         },
         {
           "id": 1,
