@@ -8,7 +8,6 @@ export function useDashboard() {
   const { user, updateUserState: setAuthUser } = useAuth();
   const { showNotification } = useNotification();
 
-  // تغییر نام کلیدها به username و password
   const [form, setForm] = useState({ username: "", password: "" });
   const [modal, setModal] = useState({ isOpen: false, currentPassword: "" });
 
@@ -36,7 +35,6 @@ export function useDashboard() {
     }
 
     try {
-      // فقط فیلدهای پر شده را برای آپدیت بفرست
       const dataToUpdate = {
         ...(form.username && { username: form.username }),
         ...(form.password && { password: form.password }),
