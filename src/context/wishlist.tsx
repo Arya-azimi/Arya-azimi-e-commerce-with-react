@@ -4,6 +4,8 @@ import {
   ReactNode,
   useEffect,
   useContext,
+  useCallback,
+  useMemo,
 } from "react";
 
 // --- State and Actions ---
@@ -58,18 +60,32 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(wishlistReducer, initialState);
 
   useEffect(() => {
-    // Always sync with localStorage. AuthProvider will manage overwriting this for logged-in users.
     localStorage.setItem("wishlist", JSON.stringify(state.productIds));
   }, [state.productIds]);
 
-  const value = {
-    wishlist: state.productIds,
-    toggleWishlist: (productId: number) =>
-      dispatch({ type: "TOGGLE_ITEM", payload: productId }),
-    setWishlist: (productIds: number[]) =>
-      dispatch({ type: "SET_WISHLIST", payload: productIds }),
-    clearWishlist: () => dispatch({ type: "CLEAR_WISHLIST" }),
-  };
+  // توابع را با useCallback پایدار می‌کنیم تا در هر رندر دوباره ساخته نشوند
+  const toggleWishlist = useCallback((productId: number) => {
+    dispatch({ type: "TOGGLE_ITEM", payload: productId });
+  }, []);
+
+  const setWishlist = useCallback((productIds: number[]) => {
+    dispatch({ type: "SET_WISHLIST", payload: productIds });
+  }, []);
+
+  const clearWishlist = useCallback(() => {
+    dispatch({ type: "CLEAR_WISHLIST" });
+  }, []);
+
+  // آبجکت value را با useMemo پایدار می‌کنیم
+  const value = useMemo(
+    () => ({
+      wishlist: state.productIds,
+      toggleWishlist,
+      setWishlist,
+      clearWishlist,
+    }),
+    [state.productIds, toggleWishlist, setWishlist, clearWishlist]
+  );
 
   return (
     <WishlistContext.Provider value={value}>

@@ -4,6 +4,7 @@ import { AuthProvider } from "../context";
 import { CartProvider } from "../context";
 import { NotificationProvider } from "../context";
 import { WishlistProvider } from "../context/wishlist";
+import { AuthDataSync } from "../components";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -14,10 +15,12 @@ export function AppProviders({ children }: AppProvidersProps) {
     <BrowserRouter>
       <NotificationProvider>
         <CartProvider>
-          {/* AuthProvider must wrap WishlistProvider to break the cycle */}
-          <AuthProvider>
-            <WishlistProvider>{children}</WishlistProvider>
-          </AuthProvider>
+          <WishlistProvider>
+            <AuthProvider>
+              <AuthDataSync />
+              {children}
+            </AuthProvider>
+          </WishlistProvider>
         </CartProvider>
       </NotificationProvider>
     </BrowserRouter>

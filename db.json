@@ -391,6 +391,11 @@
       "username": "a1",
       "password": "$2b$10$nWi6d3if1IknHfd38Iu5gOO5aflD2KIuy7/ws5Fxp6Lu4mo/cGCOO",
       "id": 12
+    },
+    {
+      "username": "p2",
+      "password": "$2b$10$SHET7t7tX9cCmJBWvVlJIu56nsWkpGz6H6FwubfNiq9n67XME6kZm",
+      "id": 13
     }
   ],
   "carts": [
@@ -490,6 +495,11 @@
       "userId": "12",
       "items": [],
       "id": 12
+    },
+    {
+      "userId": "13",
+      "items": [],
+      "id": 13
     }
   ],
   "wishlists": [
@@ -500,6 +510,15 @@
         6
       ],
       "id": 1
+    },
+    {
+      "userId": "13",
+      "productIds": [
+        4,
+        3,
+        2
+      ],
+      "id": 2
     }
   ]
 }

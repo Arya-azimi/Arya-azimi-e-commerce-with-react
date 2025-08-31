@@ -17,3 +17,4 @@ export * from "./hero";
 export * from "./auth-layout";
 export * from "./wishlist";
 export * from "./wishlist-panel";
+export * from "./auth-data-sync";
