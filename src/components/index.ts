@@ -21,3 +21,4 @@ export * from "./auth-data-sync";
 export * from "./cart-button";
 export * from "./favorite-button";
 export * from "./notification";
+export * from "./items-list";

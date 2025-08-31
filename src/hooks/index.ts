@@ -1,5 +1,4 @@
 export * from "./useProducts";
-export * from "./useAddToCart";
 export * from "./useAuthForm";
 export * from "./useAuth";
 export * from "./useCart";
