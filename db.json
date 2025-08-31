@@ -513,11 +513,7 @@
     },
     {
       "userId": "13",
-      "productIds": [
-        4,
-        3,
-        2
-      ],
+      "productIds": [],
       "id": 2
     }
   ]

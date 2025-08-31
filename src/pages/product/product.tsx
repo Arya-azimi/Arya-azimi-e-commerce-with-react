@@ -1,9 +1,8 @@
-import { useProductDetail, useAddToCart } from "../../hooks";
+import { useProductDetail } from "../../hooks";
 import { ProductImage, ProductInfo, Loading, Error } from "../../components";
 
 function ProductDetail() {
   const { product, loading, error } = useProductDetail();
-  const { handleAddToCart } = useAddToCart();
 
   if (loading) {
     return <Loading />;
@@ -21,10 +20,7 @@ function ProductDetail() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-8">
         <ProductImage imageUrl={product.imageUrl} name={product.name} />
-        <ProductInfo
-          product={product}
-          onAddToCart={() => handleAddToCart(product)}
-        />
+        <ProductInfo product={product} />
       </div>
     </div>
   );

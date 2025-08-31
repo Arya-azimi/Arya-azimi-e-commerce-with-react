@@ -5,26 +5,12 @@ import { getWishlist, updateWishlist } from "../../services";
 
 export function AuthDataSync() {
   const { user } = useAuth();
-  const { setWishlist, wishlist } = useWishlist();
+  const { setWishlist, wishlist, clearWishlist } = useWishlist();
+
   const isInitialMount = useRef(true);
-  const isSyncing = useRef(false);
 
   useEffect(() => {
-    if (user) {
-      getWishlist(user.userId).then((productIds) => setWishlist(productIds));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
-
-    const syncWishlist = async () => {
-      if (isSyncing.current) return;
-      isSyncing.current = true;
-
+    const handleAuthChange = async () => {
       if (user) {
         const localWishlist = JSON.parse(
           localStorage.getItem("wishlist") || "[]"
@@ -37,21 +23,25 @@ export function AuthDataSync() {
           await updateWishlist(user.userId, mergedWishlist);
           setWishlist(mergedWishlist);
           localStorage.removeItem("wishlist");
+        } else {
+          const serverWishlist = await getWishlist(user.userId);
+          setWishlist(serverWishlist);
         }
       } else {
-        const localWishlist = JSON.parse(
-          localStorage.getItem("wishlist") || "[]"
-        );
-        setWishlist(localWishlist);
+        clearWishlist();
       }
-      isSyncing.current = false;
     };
 
-    syncWishlist();
-  }, [user, setWishlist]);
+    handleAuthChange();
+  }, [user, setWishlist, clearWishlist]);
 
   useEffect(() => {
-    if (user && !isInitialMount.current && !isSyncing.current) {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    if (user) {
       updateWishlist(user.userId, wishlist);
     }
   }, [wishlist, user]);

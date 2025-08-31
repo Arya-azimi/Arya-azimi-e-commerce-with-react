@@ -1,7 +1,7 @@
 import { Product } from "../../domain";
 import { Link } from "react-router-dom";
-import { useCart, useNotification } from "../../hooks";
-import { useWishlist } from "../../context";
+import { useCart } from "../../hooks";
+import { useFavorite } from "../../hooks/useFavorite"; // ایمپورت با نام جدید
 
 type ProductCardProps = {
   product: Product;
@@ -9,41 +9,27 @@ type ProductCardProps = {
 
 export function Card({ product }: ProductCardProps) {
   const { addItem, removeItem, items } = useCart();
-  const { showNotification } = useNotification();
-  const { wishlist, toggleWishlist } = useWishlist();
-
   const itemInCart = items.find((item) => item.id === product.id);
   const quantityInCart = itemInCart?.quantity || 0;
-  const isFavorite = wishlist.includes(product.id);
+
+  const { isFavorite, handleToggleFavorite } = useFavorite(product);
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addItem(product);
-    showNotification(`${product.name} اضافه شد`, "success");
   };
 
   const handleRemove = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     removeItem(product.id);
-    showNotification(`${product.name} حذف شد`, "error");
-  };
-
-  const handleToggleWishlist = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleWishlist(product.id);
-    showNotification(
-      isFavorite ? "از علاقه‌مندی‌ها حذف شد" : "به علاقه‌مندی‌ها اضافه شد",
-      isFavorite ? "error" : "success"
-    );
   };
 
   return (
     <div className="group block overflow-hidden rounded-lg shadow-md transition-shadows border-2 hover:shadow-xl relative">
       <button
-        onClick={handleToggleWishlist}
+        onClick={handleToggleFavorite} // استفاده از تابع جدید
         className="absolute top-2 right-2 z-10 p-2 bg-white/70 rounded-full backdrop-blur-sm transition-opacity opacity-0 group-hover:opacity-100"
       >
         <svg
@@ -64,6 +50,7 @@ export function Card({ product }: ProductCardProps) {
         </svg>
       </button>
 
+      {/* بقیه کامپوننت بدون تغییر */}
       <Link to={`/products/${product.slug}`}>
         <img
           src={product.imageUrl}

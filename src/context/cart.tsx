@@ -1,4 +1,11 @@
-import { createContext, useReducer, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useReducer,
+  ReactNode,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import { Product } from "../domain";
 
 interface CartItem extends Product {
@@ -79,18 +86,33 @@ function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("cartItems", JSON.stringify(state.items));
   }, [state.items]);
 
-  const value = {
-    items: state.items,
-    addItem: (product: Product) =>
-      dispatch({ type: "ADD_ITEM", payload: product }),
-    removeItem: (productId: number) =>
-      dispatch({ type: "REMOVE_ITEM", payload: { productId } }),
-    clearCart: () => {
-      dispatch({ type: "CLEAR_CART" });
-    },
-    setCart: (items: CartItem[]) =>
-      dispatch({ type: "SET_CART", payload: items }),
-  };
+  const addItem = useCallback((product: Product) => {
+    dispatch({ type: "ADD_ITEM", payload: product });
+  }, []);
+
+  const removeItem = useCallback((productId: number) => {
+    dispatch({ type: "REMOVE_ITEM", payload: { productId } });
+  }, []);
+
+  const clearCart = useCallback(() => {
+    dispatch({ type: "CLEAR_CART" });
+  }, []);
+
+  const setCart = useCallback((items: CartItem[]) => {
+    dispatch({ type: "SET_CART", payload: items });
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      items: state.items,
+      addItem,
+      removeItem,
+      clearCart,
+      setCart,
+    }),
+    [state.items, addItem, removeItem, clearCart, setCart]
+  );
+
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 

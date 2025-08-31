@@ -8,7 +8,7 @@ export function Wishlist() {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)} className="relative">
+      <button onClick={() => setIsOpen(true)} className="relative mx-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 absolute -top-4 text-gray-600"
