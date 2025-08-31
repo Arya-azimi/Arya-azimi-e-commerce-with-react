@@ -15,3 +15,5 @@ export * from "./shopping-cart-icon";
 export * from "./featured-products";
 export * from "./hero";
 export * from "./auth-layout";
+export * from "./wishlist";
+export * from "./wishlist-panel";

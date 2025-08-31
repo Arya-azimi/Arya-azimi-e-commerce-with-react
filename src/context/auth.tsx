@@ -1,7 +1,16 @@
-import { useState, useEffect, createContext, ReactNode } from "react";
-import { signIn, signUp, getCart, saveCart, logoutUser } from "../services";
+import { useState, useEffect, createContext, ReactNode, useRef } from "react";
+import {
+  signIn,
+  signUp,
+  getCart,
+  saveCart,
+  logoutUser,
+  getWishlist,
+  updateWishlist,
+} from "../services";
 import { User, CartItem } from "../domain";
 import { useCart } from "../hooks";
+import { useWishlist } from "./wishlist";
 
 interface AuthContextType {
   user: User | null;
@@ -12,49 +21,45 @@ interface AuthContextType {
   logout: () => void;
   updateUserState: (newUser: User) => void;
 }
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
   const { setCart, clearCart, items: localCartItems } = useCart();
+  const { setWishlist, clearWishlist, wishlist } = useWishlist();
+  const isMounted = useRef(false); // To prevent useEffect from running on initial render
 
+  // Effect to load initial user data from localStorage
   useEffect(() => {
-    setLoading(true);
-    try {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
-        getCart(parsedUser.userId).then((items) => {
-          if (items) setCart(items);
-        });
-      }
-    } catch (e) {
-      console.error("Failed to initialize auth from storage", e);
-      setUser(null);
-    } finally {
-      setLoading(false);
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+      // Fetch data for the logged-in user
+      getCart(parsedUser.userId).then((items) => setCart(items));
+      getWishlist(parsedUser.userId).then((productIds) =>
+        setWishlist(productIds)
+      );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setLoading(false);
+  }, [setCart, setWishlist]);
 
-  const mergeCarts = (
-    serverCart: CartItem[],
-    localCart: CartItem[]
-  ): CartItem[] => {
-    const merged = [...serverCart];
-    localCart.forEach((localItem) => {
-      const serverItem = merged.find((item) => item.id === localItem.id);
-      if (serverItem) {
-        serverItem.quantity += localItem.quantity;
-      } else {
-        merged.push(localItem);
-      }
-    });
-    return merged;
-  };
+  // Effect to automatically sync wishlist changes to the server
+  useEffect(() => {
+    // This check prevents the effect from running on the very first render
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+    // If there's a logged-in user, save any wishlist changes to the server
+    if (user) {
+      updateWishlist(user.userId, wishlist);
+    }
+  }, [wishlist, user]); // This effect runs whenever the wishlist or user changes
 
   const login = async (username, password) => {
     setLoading(true);
@@ -65,35 +70,40 @@ function AuthProvider({ children }: { children: ReactNode }) {
         username: authUser.username,
         userId: authUser.id.toString(),
       };
-      setUser(newUser);
-      localStorage.setItem("user", JSON.stringify(newUser));
 
+      // Get local data *before* setting the user
+      const localWishlist = JSON.parse(
+        localStorage.getItem("wishlist") || "[]"
+      );
+
+      // Fetch server data
+      const serverWishlist = await getWishlist(newUser.userId);
       const serverCart = await getCart(newUser.userId);
-      const mergedCart = mergeCarts(serverCart, localCartItems);
+
+      // Merge wishlists
+      const mergedWishlist = [
+        ...new Set([...serverWishlist, ...localWishlist]),
+      ];
+      await updateWishlist(newUser.userId, mergedWishlist);
+      setWishlist(mergedWishlist); // Update global state
+
+      // Merge carts
+      const mergedCart: CartItem[] = [...serverCart];
+      localCartItems.forEach((localItem) => {
+        const serverItem = mergedCart.find((item) => item.id === localItem.id);
+        if (serverItem) serverItem.quantity += localItem.quantity;
+        else mergedCart.push(localItem);
+      });
       setCart(mergedCart);
       await saveCart(newUser.userId, mergedCart);
 
-      localStorage.removeItem("cartItems");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "خطا در ورود.");
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-  const signup = async (username, password) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const { user: authUser } = await signUp(username, password);
-      const newUser: User = {
-        username: authUser.username,
-        userId: authUser.id.toString(),
-      };
+      // Now set the user and clear local data
       setUser(newUser);
       localStorage.setItem("user", JSON.stringify(newUser));
+      localStorage.removeItem("cartItems");
+      localStorage.removeItem("wishlist");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "خطا در ثبت‌نام.");
+      setError(err instanceof Error ? err.message : "خطا در ورود.");
       throw err;
     } finally {
       setLoading(false);
@@ -108,6 +118,27 @@ function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
     localStorage.removeItem("user");
     clearCart();
+    clearWishlist();
+  };
+
+  const signup = async (username: string, password: string) => {
+    // This function doesn't need changes
+    setLoading(true);
+    setError(null);
+    try {
+      const { user: authUser } = await signUp(username, password);
+      const newUser: User = {
+        username: authUser.username,
+        userId: authUser.id.toString(),
+      };
+      // After signup, we immediately log the user in
+      await login(username, password);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "خطا در ثبت‌نام.");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const updateUserState = (newUser: User) => {
@@ -128,4 +159,4 @@ function AuthProvider({ children }: { children: ReactNode }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export { AuthContext, AuthProvider };
+export { AuthProvider, AuthContext };

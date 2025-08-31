@@ -1,18 +1,20 @@
 import { Product } from "../../domain";
 import { Link } from "react-router-dom";
 import { useCart, useNotification } from "../../hooks";
+import { useWishlist } from "../../context";
 
 type ProductCardProps = {
   product: Product;
 };
 
-function Card({ product }: ProductCardProps) {
-  const { addItem, removeItem } = useCart();
+export function Card({ product }: ProductCardProps) {
+  const { addItem, removeItem, items } = useCart();
   const { showNotification } = useNotification();
-  const { items } = useCart();
+  const { wishlist, toggleWishlist } = useWishlist();
 
   const itemInCart = items.find((item) => item.id === product.id);
   const quantityInCart = itemInCart?.quantity || 0;
+  const isFavorite = wishlist.includes(product.id);
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -28,8 +30,40 @@ function Card({ product }: ProductCardProps) {
     showNotification(`${product.name} حذف شد`, "error");
   };
 
+  const handleToggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist(product.id);
+    showNotification(
+      isFavorite ? "از علاقه‌مندی‌ها حذف شد" : "به علاقه‌مندی‌ها اضافه شد",
+      isFavorite ? "error" : "success"
+    );
+  };
+
   return (
-    <div className="block overflow-hidden rounded-lg shadow-md transition-shadows border-2 hover:shadow-xl">
+    <div className="group block overflow-hidden rounded-lg shadow-md transition-shadows border-2 hover:shadow-xl relative">
+      <button
+        onClick={handleToggleWishlist}
+        className="absolute top-2 right-2 z-10 p-2 bg-white/70 rounded-full backdrop-blur-sm transition-opacity opacity-0 group-hover:opacity-100"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className={`h-6 w-6 transition-colors ${
+            isFavorite ? "text-red-500" : "text-gray-500 hover:text-red-400"
+          }`}
+          fill={isFavorite ? "currentColor" : "none"}
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.5l1.318-1.182a4.5 4.5 0 116.364 6.364L12 21l-7.682-7.318a4.5 4.5 0 010-6.364z"
+          />
+        </svg>
+      </button>
+
       <Link to={`/products/${product.slug}`}>
         <img
           src={product.imageUrl}
@@ -71,5 +105,3 @@ function Card({ product }: ProductCardProps) {
     </div>
   );
 }
-
-export { Card };

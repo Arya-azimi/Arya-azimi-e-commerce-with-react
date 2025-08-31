@@ -3,10 +3,10 @@ interface ProductImageProps {
   name: string;
 }
 
-function ProductImage({ imageUrl, name }: ProductImageProps) {
+function ProductImage({ imageUrl }: ProductImageProps) {
   return (
     <div className="md:w-1/2">
-      <img src={imageUrl} alt={name} className="w-full rounded-lg shadow-md" />
+      <img src={imageUrl} alt="name" className="w-full rounded-lg shadow-md" />
     </div>
   );
 }

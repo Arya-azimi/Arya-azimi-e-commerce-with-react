@@ -33,7 +33,6 @@ const authorize = (req, res, next) => {
     return res.status(401).json({ message: "توکن نامعتبر است." });
   }
 };
-
 server.post("/signup", (req, res) => {
   const { username, password } = req.body;
   const db = router.db;
@@ -162,6 +161,14 @@ server.post("/users/verify-password", authorize, (req, res) => {
   }
 
   res.status(200).json({ message: "رمز عبور تایید شد." });
+});
+
+server.use((req, res, next) => {
+  const protectedRoutes = ["/carts", "/wishlists"];
+  if (protectedRoutes.some((route) => req.path.startsWith(route))) {
+    return authorize(req, res, next);
+  }
+  next();
 });
 
 server.use(router);

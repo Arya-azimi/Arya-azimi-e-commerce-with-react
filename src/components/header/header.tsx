@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart } from "../shopping-cart";
 import { useAuth } from "../../hooks";
 import { Modal } from "../modal";
+import { Wishlist } from "../wishlist";
 
 function Header() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const handleLogout = () => {
@@ -18,7 +18,7 @@ function Header() {
 
   return (
     <>
-      <header className="bg-white shadow h-[8vh]  flex justify-between items-center">
+      <header className="bg-white shadow h-[8vh] flex justify-between items-center">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold text-gray-900">
             فروشگاه
@@ -59,6 +59,7 @@ function Header() {
                 ورود
               </Link>
             )}
+            <Wishlist />
             <ShoppingCart />
           </nav>
         </div>

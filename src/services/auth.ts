@@ -15,42 +15,59 @@ type CurrentPasswordData = {
   currentPassword: string;
 };
 
-function signIn(username: string, password: string): Promise<AuthResult> {
+// تایپ جدید برای لیست علاقه‌مندی‌ها
+type Wishlist = { id: number; userId: string; productIds: number[] };
+
+// --- Auth Functions ---
+export function signIn(
+  username: string,
+  password: string
+): Promise<AuthResult> {
   return apiClient.post<AuthResult, AuthCredentials>("login", {
     username,
     password,
   });
 }
 
-function signUp(username: string, password: string): Promise<AuthResult> {
+export function signUp(
+  username: string,
+  password: string
+): Promise<AuthResult> {
   return apiClient.post<AuthResult, AuthCredentials>("signup", {
     username,
     password,
   });
 }
 
-function updateUser(userId: string, data: UserUpdateData): Promise<AuthResult> {
+export function updateUser(
+  userId: string,
+  data: UserUpdateData
+): Promise<AuthResult> {
   return apiClient.patch<AuthResult, UserUpdateData>(`users/${userId}`, data);
 }
 
-function logoutUser(): Promise<void> {
+export function logoutUser(): Promise<void> {
   return apiClient.post<void, object>("logout", {});
 }
 
-function verifyPassword(currentPassword: string): Promise<void> {
+export function verifyPassword(currentPassword: string): Promise<void> {
   return apiClient.post<void, CurrentPasswordData>("users/verify-password", {
     currentPassword,
   });
 }
 
-async function getCart(userId: string): Promise<CartItem[]> {
+// --- Cart Functions ---
+export async function getCart(userId: string): Promise<CartItem[]> {
   const carts = await apiClient.get<Array<{ items: CartItem[] }>>(
     `carts?userId=${userId}`
   );
   return carts.length > 0 ? carts[0].items : [];
 }
 
-async function saveCart(userId: string, items: CartItem[]): Promise<void> {
+export async function saveCart(
+  userId: string,
+  items: CartItem[]
+): Promise<void> {
   const existingCarts = await apiClient.get<Array<{ id: number }>>(
     `carts?userId=${userId}`
   );
@@ -69,12 +86,35 @@ async function saveCart(userId: string, items: CartItem[]): Promise<void> {
   }
 }
 
-export {
-  signIn,
-  signUp,
-  updateUser,
-  logoutUser,
-  verifyPassword,
-  getCart,
-  saveCart,
-};
+// --- Wishlist Functions ---
+export async function getWishlist(userId: string): Promise<number[]> {
+  const wishlists = await apiClient.get<Wishlist[]>(
+    `wishlists?userId=${userId}`
+  );
+  return wishlists.length > 0 ? wishlists[0].productIds : [];
+}
+
+export async function updateWishlist(
+  userId: string,
+  productIds: number[]
+): Promise<void> {
+  const existing = await apiClient.get<Wishlist[]>(
+    `wishlists?userId=${userId}`
+  );
+
+  if (existing.length > 0) {
+    const wishlistId = existing[0].id;
+    await apiClient.put<void, { userId: string; productIds: number[] }>(
+      `wishlists/${wishlistId}`,
+      { userId, productIds }
+    );
+  } else {
+    await apiClient.post<void, { userId: string; productIds: number[] }>(
+      "wishlists",
+      {
+        userId,
+        productIds,
+      }
+    );
+  }
+}
