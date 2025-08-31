@@ -11,3 +11,5 @@ export * from "./useProductDetail";
 export * from "./useProductsPage";
 export * from "./useProductFilter";
 export * from "./useDashboard";
+export * from "./useFavorite";
+export * from "./useWishlist";

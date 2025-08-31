@@ -1,4 +1,4 @@
-import { useWishlist } from "../context";
+import { useWishlist } from ".";
 import { useNotification } from "./useNotification";
 import { Product } from "../domain";
 

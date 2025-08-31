@@ -3,12 +3,10 @@ import {
   useReducer,
   ReactNode,
   useEffect,
-  useContext,
   useCallback,
   useMemo,
 } from "react";
 
-// --- State and Actions ---
 type WishlistState = {
   productIds: number[];
 };
@@ -40,7 +38,6 @@ const wishlistReducer = (
   }
 };
 
-// --- Context Definition ---
 interface WishlistContextType {
   wishlist: number[];
   toggleWishlist: (productId: number) => void;
@@ -52,8 +49,7 @@ const WishlistContext = createContext<WishlistContextType | undefined>(
   undefined
 );
 
-// --- Provider Component ---
-export function WishlistProvider({ children }: { children: ReactNode }) {
+function WishlistProvider({ children }: { children: ReactNode }) {
   const initialState: WishlistState = {
     productIds: JSON.parse(localStorage.getItem("wishlist") || "[]"),
   };
@@ -63,7 +59,6 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("wishlist", JSON.stringify(state.productIds));
   }, [state.productIds]);
 
-  // توابع را با useCallback پایدار می‌کنیم تا در هر رندر دوباره ساخته نشوند
   const toggleWishlist = useCallback((productId: number) => {
     dispatch({ type: "TOGGLE_ITEM", payload: productId });
   }, []);
@@ -76,7 +71,6 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     dispatch({ type: "CLEAR_WISHLIST" });
   }, []);
 
-  // آبجکت value را با useMemo پایدار می‌کنیم
   const value = useMemo(
     () => ({
       wishlist: state.productIds,
@@ -94,11 +88,4 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// --- Custom Hook ---
-export const useWishlist = () => {
-  const context = useContext(WishlistContext);
-  if (context === undefined) {
-    throw new Error("useWishlist must be used within a WishlistProvider");
-  }
-  return context;
-};
+export { WishlistProvider, WishlistContext };

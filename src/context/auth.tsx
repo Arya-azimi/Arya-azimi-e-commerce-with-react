@@ -23,17 +23,14 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const { setCart, clearCart, items: localCartItems } = useCart();
 
   const logout = async () => {
-    // از try...finally استفاده می‌کنیم تا مطمئن شویم کدهای خروج در هر حالتی اجرا می‌شوند
     try {
       if (user) {
-        // سعی می‌کنیم سبد خرید را ذخیره کنیم اما اگر خطا داد، مشکلی نیست
         await saveCart(user.userId, localCartItems).catch((err) => {
           console.error("Failed to save cart on logout:", err);
         });
-        await logoutUser(); // درخواست خروج را به سرور می‌فرستیم
+        await logoutUser();
       }
     } finally {
-      // این بخش همیشه اجرا می‌شود، حتی اگر try با خطا مواجه شود
       setUser(null);
       localStorage.removeItem("user");
       clearCart();
@@ -44,22 +41,19 @@ function AuthProvider({ children }: { children: ReactNode }) {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser); // ابتدا کاربر را تنظیم می‌کنیم تا UI سریع نمایش داده شود
+      setUser(parsedUser);
 
-      // سپس با دریافت سبد خرید، نشست کاربر را تایید می‌کنیم
       getCart(parsedUser.userId)
         .then((items) => setCart(items))
         .catch((err) => {
-          // اگر این درخواست با خطا مواجه شد (مثلا 401)، یعنی نشست منقضی شده
           console.error("Session check failed, logging out client-side:", err);
-          // پس کاربر را از سمت کلاینت خارج می‌کنیم
           setUser(null);
           localStorage.removeItem("user");
           clearCart();
         });
     }
     setLoading(false);
-  }, [setCart, clearCart]); // فقط یک بار در زمان مونت شدن اجرا می‌شود
+  }, [setCart, clearCart]);
 
   const login = async (username: string, password: string) => {
     setLoading(true);
@@ -99,7 +93,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     setError(null);
     try {
-      // پس از ثبت‌نام موفق، مستقیم کاربر را لاگین می‌کنیم
       await signUp(username, password);
       await login(username, password);
     } catch (err) {

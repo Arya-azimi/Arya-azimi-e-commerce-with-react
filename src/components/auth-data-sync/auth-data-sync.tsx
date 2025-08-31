@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useAuth } from "../../hooks";
-import { useWishlist } from "../../context";
+import { useWishlist } from "../../hooks";
 import { getWishlist, updateWishlist } from "../../services";
 
 export function AuthDataSync() {

@@ -1,4 +1,4 @@
-import { useWishlist } from "../../context";
+import { useWishlist } from "../../hooks";
 import { useProducts } from "../../hooks";
 import { Loading, Error } from "..";
 import { Link } from "react-router-dom";

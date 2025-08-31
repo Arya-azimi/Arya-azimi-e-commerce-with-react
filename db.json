@@ -498,7 +498,20 @@
     },
     {
       "userId": "13",
-      "items": [],
+      "items": [
+        {
+          "id": 1,
+          "name": "محصول",
+          "price": 129.99,
+          "category": "الکترونیک",
+          "slug": "zenith-gaming-headset",
+          "description": "طراحی ارگونومیک با صدای فراگیر 7.1 کاناله برای تجربه بی‌نظیر گیمینگ.",
+          "imageUrl": "https://picsum.photos/800/600?random=1",
+          "isFeatured": true,
+          "createdAt": "2025-08-18T10:00:00Z",
+          "quantity": 1
+        }
+      ],
       "id": 13
     }
   ],
@@ -513,7 +526,9 @@
     },
     {
       "userId": "13",
-      "productIds": [],
+      "productIds": [
+        1
+      ],
       "id": 2
     }
   ]

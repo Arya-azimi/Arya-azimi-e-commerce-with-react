@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useWishlist } from "../../context";
+import { useWishlist } from "../../hooks";
 import { WishlistPanel } from "../wishlist-panel";
 
 export function Wishlist() {
