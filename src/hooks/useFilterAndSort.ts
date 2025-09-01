@@ -1,37 +1,31 @@
 import { useMemo } from "react";
 import { Product } from "../domain";
 
-function useFilterAndSort(
-  products: Product[],
-  searchTerm: string,
-  sortOption: string
-) {
-  const sortedAndFilteredProducts = useMemo(() => {
-    const filtered = products.filter((p) =>
-      p.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+function useFilterAndSort(products: Product[], sortOption: string) {
+  const sortedProducts = useMemo(() => {
+    const productsToSort = [...products];
 
     switch (sortOption) {
       case "newest":
-        return filtered.sort(
+        return productsToSort.sort(
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
       case "oldest":
-        return filtered.sort(
+        return productsToSort.sort(
           (a, b) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
         );
       case "price-asc":
-        return filtered.sort((a, b) => a.price - b.price);
+        return productsToSort.sort((a, b) => a.price - b.price);
       case "price-desc":
-        return filtered.sort((a, b) => b.price - a.price);
+        return productsToSort.sort((a, b) => b.price - a.price);
       default:
-        return filtered;
+        return productsToSort;
     }
-  }, [products, searchTerm, sortOption]);
+  }, [products, sortOption]);
 
-  return { sortedAndFilteredProducts };
+  return { sortedProducts };
 }
 
 export { useFilterAndSort };

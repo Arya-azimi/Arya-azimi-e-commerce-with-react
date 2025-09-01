@@ -4,6 +4,7 @@ import apiClient from "./apiClient";
 interface GetProductsParams {
   isFeatured?: boolean;
   slug?: string;
+  searchTerm?: string;
 }
 
 export async function getProducts(
@@ -17,6 +18,9 @@ export async function getProducts(
     }
     if (params.slug) {
       query.append("slug", params.slug);
+    }
+    if (params.searchTerm) {
+      query.append("q", params.searchTerm);
     }
   }
 

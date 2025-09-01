@@ -1,24 +1,23 @@
 import { useSearchParams } from "react-router-dom";
 import { useProducts } from "./useProducts";
 import { useFilterAndSort } from "./useFilterAndSort";
+import { useDebounce } from "./useDebounce"; // هوک جدید را ایمپورت می‌کنیم
 
 function useProductsPage() {
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("search") || "";
   const sortOption = searchParams.get("sort") || "newest";
 
-  const { products, loading, error } = useProducts();
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  const { sortedAndFilteredProducts } = useFilterAndSort(
-    products,
-    searchTerm,
-    sortOption
-  );
+  const { products, loading, error } = useProducts(debouncedSearchTerm);
+
+  const { sortedProducts } = useFilterAndSort(products, sortOption);
 
   return {
     loading,
     error,
-    sortedAndFilteredProducts,
+    sortedProducts,
   };
 }
 
