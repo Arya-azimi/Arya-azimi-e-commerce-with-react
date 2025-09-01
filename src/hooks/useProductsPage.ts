@@ -8,9 +8,9 @@ function useProductsPage() {
   const searchTerm = searchParams.get("search") || "";
   const sortOption = searchParams.get("sort") || "newest";
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const debounced = useDebounce(searchTerm, 500);
 
-  const { products, loading, error } = useProducts(debouncedSearchTerm);
+  const { products, loading, error } = useProducts(debounced);
 
   const { sortedProducts } = useFilterAndSort(products, sortOption);
 

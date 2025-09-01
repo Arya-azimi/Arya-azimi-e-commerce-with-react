@@ -2,7 +2,7 @@ import { useProductsPage } from "../../hooks/";
 import { Loading, Error, ProductList, ProductFilter } from "../../components";
 import { UI_MESSAGES } from "../../constants/messages";
 
-export function Products() {
+function Products() {
   const { loading, error, sortedProducts } = useProductsPage();
 
   const renderProductContent = () => {
@@ -22,3 +22,5 @@ export function Products() {
     </div>
   );
 }
+
+export { Products };

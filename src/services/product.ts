@@ -1,5 +1,6 @@
 import { Product } from "../domain";
 import apiClient from "./apiClient";
+import { validateProducts } from "../utils";
 
 interface GetProductsParams {
   isFeatured?: boolean;
@@ -25,9 +26,11 @@ export async function getProducts(
   }
 
   const endpoint = `products?${query.toString()}`;
-  return apiClient.get<Product[]>(endpoint);
-}
+  const rawData = await apiClient.get<any[]>(endpoint); // ۲. داده‌ها را به عنوان any دریافت می‌کنیم
 
+  // ۳. داده‌های خام را قبل از بازگشت، اعتبارسنجی و تمیز می‌کنیم
+  return validateProducts(rawData);
+}
 export async function getProductBySlug(slug: string): Promise<Product> {
   const products = await getProducts({ slug });
   if (products.length === 0) {
