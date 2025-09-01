@@ -15,10 +15,8 @@ type CurrentPasswordData = {
   currentPassword: string;
 };
 
-// تایپ جدید برای لیست علاقه‌مندی‌ها
 type Wishlist = { id: number; userId: string; productIds: number[] };
 
-// --- Auth Functions ---
 export function signIn(
   username: string,
   password: string
@@ -56,7 +54,6 @@ export function verifyPassword(currentPassword: string): Promise<void> {
   });
 }
 
-// --- Cart Functions ---
 export async function getCart(userId: string): Promise<CartItem[]> {
   const carts = await apiClient.get<Array<{ items: CartItem[] }>>(
     `carts?userId=${userId}`
@@ -86,7 +83,6 @@ export async function saveCart(
   }
 }
 
-// --- Wishlist Functions ---
 export async function getWishlist(userId: string): Promise<number[]> {
   const wishlists = await apiClient.get<Wishlist[]>(
     `wishlists?userId=${userId}`
