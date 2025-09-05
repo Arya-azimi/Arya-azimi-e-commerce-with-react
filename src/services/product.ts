@@ -26,9 +26,7 @@ export async function getProducts(
   }
 
   const endpoint = `products?${query.toString()}`;
-  const rawData = await apiClient.get<any[]>(endpoint); // ۲. داده‌ها را به عنوان any دریافت می‌کنیم
-
-  // ۳. داده‌های خام را قبل از بازگشت، اعتبارسنجی و تمیز می‌کنیم
+  const rawData = await apiClient.get<any[]>(endpoint);
   return validateProducts(rawData);
 }
 export async function getProductBySlug(slug: string): Promise<Product> {

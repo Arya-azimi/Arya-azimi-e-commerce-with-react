@@ -25,3 +25,4 @@ export * from "./items-list";
 export * from "./user-profile";
 export * from "./user-cart";
 export * from "./user-favorites";
+export * from "./data-sync";
