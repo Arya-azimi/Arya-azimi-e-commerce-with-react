@@ -528,7 +528,9 @@
     },
     {
       "userId": "14",
-      "productIds": [],
+      "productIds": [
+        3
+      ],
       "id": 3
     },
     {

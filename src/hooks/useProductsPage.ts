@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useProducts } from "./useProducts";
 import { useFilterAndSort } from "./useFilterAndSort";
-import { useDebounce } from "./useDebounce"; // هوک جدید را ایمپورت می‌کنیم
+import { useDebounce } from "./useDebounce";
 
 function useProductsPage() {
   const [searchParams] = useSearchParams();
