@@ -16,14 +16,14 @@ function AppProviders({ children }: AppProvidersProps) {
   return (
     <BrowserRouter>
       <NotificationProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <AuthProvider>
+        <AuthProvider>
+          <CartProvider>
+            <WishlistProvider>
               <DataSync />
               {children}
-            </AuthProvider>
-          </WishlistProvider>
-        </CartProvider>
+            </WishlistProvider>
+          </CartProvider>
+        </AuthProvider>
       </NotificationProvider>
     </BrowserRouter>
   );
